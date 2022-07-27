@@ -65,7 +65,8 @@
 		"stylelint-config-prettier": "^9.0.3",
 		"stylelint-config-standard": "^26.0.0",
 		"stylelint-prettier": "^2.0.0",
-		"suncalc": "^1.9.0"
+		"suncalc": "^1.9.0",
+		"tailwindcss": "^3.1.6"
 	},
 	"optionalDependencies": {
 		"electron": "^19.0.6"
@@ -78,19 +79,17 @@
 		"express": "^4.18.1",
 		"express-ipfilter": "^1.2.0",
 		"feedme": "^2.0.2",
+		"fetch": "^1.1.0",
 		"helmet": "^5.1.0",
 		"iconv-lite": "^0.6.3",
+		"js-logger": "^1.6.1",
+		"logger": "^0.0.1",
 		"luxon": "^1.28.0",
 		"module-alias": "^2.2.2",
 		"moment": "^2.29.3",
 		"node-fetch": "^2.6.7",
 		"node-ical": "^0.15.1",
 		"socket.io": "^4.5.1"
-	},
-	"_moduleAliases": {
-		"node_helper": "js/node_helper.js",
-		"logger": "js/logger.js",
-		"fetch": "js/fetch.js"
 	},
 	"engines": {
 		"node": ">=14"
@@ -137,5 +136,8 @@
 				]
 			}
 		]
+	},
+	"directories": {
+		"test": "tests"
 	}
 }

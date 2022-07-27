@@ -12,7 +12,7 @@ const fs = require("fs");
 const helmet = require("helmet");
 const fetch = require("fetch");
 
-const Log = require("logger");
+const Log = require("logger").createLogger();
 const Utils = require("./utils.js");
 
 /**
@@ -51,7 +51,7 @@ function Server(config, callback) {
 		});
 	});
 
-	Log.log(`Starting server on port ${port} ... `);
+	Log.info(`Starting server on port ${port} ... `);
 
 	server.listen(port, config.address || "localhost");
 

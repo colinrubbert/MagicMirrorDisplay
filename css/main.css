@@ -1,3 +1,8 @@
+/* Include Tailwind */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   --color-text: #999;
   --color-text-dimmed: #666;
