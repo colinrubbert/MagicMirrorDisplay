@@ -1,3 +1,6 @@
+** THIS IS A FORK DESIGNED WITH THE INTENTION OF CREATING A NON-MIRROR BASED DISPLAY WITH BETTER CSS CUSTOMIZATION WITH TAILWIND **
+
+
 ![MagicMirror²: The open source modular smart mirror platform. ](.github/header.png)
 
 <p style="text-align: center">
