@@ -10,7 +10,7 @@ const path = require("path");
 const ipfilter = require("express-ipfilter").IpFilter;
 const fs = require("fs");
 const helmet = require("helmet");
-const fetch = require("fetch");
+const fetch = require("node-fetch");
 
 const Log = require("logger").createLogger();
 const Utils = require("./utils.js");
@@ -94,6 +94,7 @@ function Server(config, callback) {
 				url = match[1];
 				Log.log("cors url: " + url);
 				const response = await fetch(url, { headers: { "User-Agent": "Mozilla/5.0 MagicMirror/" + global.version } });
+				Log.log("repsonse: " + response);
 				const header = response.headers.get("Content-Type");
 				const data = await response.text();
 				if (header) res.set("Content-Type", header);

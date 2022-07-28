@@ -7,6 +7,7 @@
 		"start": "DISPLAY=\"${DISPLAY:=:0}\" ./node_modules/.bin/electron js/electron.js",
 		"start:dev": "DISPLAY=\"${DISPLAY:=:0}\" ./node_modules/.bin/electron js/electron.js dev",
 		"server": "node ./serveronly",
+		"server:tailwind": "npx tailwindcss -i css/main.css -o css/tailwind.css && node ./serveronly",
 		"install": "echo \"Installing vendor files ...\n\" && cd vendor && npm install --loglevel=error",
 		"install-fonts": "echo \"Installing fonts ...\n\" && cd fonts && npm install --loglevel=error",
 		"postinstall": "npm run install-fonts && echo \"MagicMirror² installation finished successfully! \n\"",
@@ -72,9 +73,12 @@
 		"electron": "^19.0.6"
 	},
 	"dependencies": {
+		"@types/node-fetch": "^2.6.2",
+		"ckey": "^1.0.3",
 		"colors": "^1.4.0",
 		"console-stamp": "^3.0.6",
 		"digest-fetch": "^1.2.1",
+		"dotenv": "^16.0.1",
 		"eslint": "^8.18.0",
 		"express": "^4.18.1",
 		"express-ipfilter": "^1.2.0",

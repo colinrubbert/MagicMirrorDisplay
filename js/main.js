@@ -29,7 +29,7 @@ const MM = (function () {
 			dom.className = module.name;
 
 			if (typeof module.data.classes === "string") {
-				dom.className = "module " + dom.className + " " + module.data.classes;
+				dom.className = "module " + module.identifier + " " + dom.className + " " + module.data.classes;
 			}
 
 			dom.opacity = 0;
@@ -59,7 +59,7 @@ const MM = (function () {
 				.catch(Log.error);
 		});
 
-		updateWrapperStates();
+		// updateWrapperStates(position);
 
 		Promise.all(domCreationPromises).then(function () {
 			sendNotification("DOM_OBJECTS_CREATED");
@@ -72,16 +72,45 @@ const MM = (function () {
 	 * @param {string} position The name of the position.
 	 * @returns {HTMLElement} the wrapper element
 	 */
-	const selectWrapper = function (position) {
-		const classes = position.replace("_", " ");
-		const parentWrapper = document.getElementsByClassName(classes);
+	// function selectWrapper(position) {
+	// 	const classes = position.split(" ");
+	// 	const parentWrapper = document.getElementsByClassName("app");
+	// 	const region = document.createElement("div");
+	// 	region.setAttribute("class", classes.toString().replaceAll(",", " "));
+
+	// 	if (parentWrapper.length > 0) {
+	// 		parentWrapper[0].append(region);
+	// 		const wrapper = parentWrapper[0].getElementsByClassName(classes[0]);
+	// 		if (wrapper.length > 0) {
+	// 			return wrapper[0];
+	// 		}
+	// 	}
+	// }
+
+	/**
+	 * Select the wrapper dom object for a specific position.
+	 *
+	 * @param {string} position The name of the position.
+	 * @returns {HTMLElement} the wrapper element
+	 *
+	 * NOTES: Add an ability to grab the module name instead of having to specify it in the position.
+	 */
+	function selectWrapper(position) {
+		const positions = position.split(" ");
+		const parentWrapper = document.getElementsByClassName("app");
+		const parentWrapperCount = parentWrapper[0].childElementCount;
+		const region = document.createElement("div");
+		const classes = positions.toString().replaceAll(",", " ");
+		region.setAttribute("class", classes);
+
 		if (parentWrapper.length > 0) {
-			const wrapper = parentWrapper[0].getElementsByClassName("container");
+			parentWrapper[0].append(region);
+			const wrapper = parentWrapper[0].getElementsByClassName(classes);
 			if (wrapper.length > 0) {
 				return wrapper[0];
 			}
 		}
-	};
+	}
 
 	/**
 	 * Send a notification to all modules.
@@ -255,7 +284,7 @@ const MM = (function () {
 				// the .display property.
 				moduleWrapper.style.position = "fixed";
 
-				updateWrapperStates();
+				updateWrapperStates(module.data.position);
 
 				if (typeof callback === "function") {
 					callback();
@@ -313,7 +342,7 @@ const MM = (function () {
 			moduleWrapper.style.position = "static";
 			moduleWrapper.classList.remove("hidden");
 
-			updateWrapperStates();
+			updateWrapperStates(module.data.position);
 
 			// Waiting for DOM-changes done in updateWrapperStates before we can start the animation.
 			const dummy = moduleWrapper.parentElement.parentElement.offsetHeight;
@@ -344,8 +373,8 @@ const MM = (function () {
 	 * an ugly top margin. By using this function, the top bar will be hidden if the
 	 * update notification is not visible.
 	 */
-	const updateWrapperStates = function () {
-		const positions = ["top_bar", "top_left", "top_center", "top_right", "upper_third", "middle_center", "lower_third", "bottom_left", "bottom_center", "bottom_right", "bottom_bar", "fullscreen_above", "fullscreen_below"];
+	const updateWrapperStates = function (position) {
+		const positions = Array.from(position.trim().split(" "));
 
 		positions.forEach(function (position) {
 			const wrapper = selectWrapper(position);
